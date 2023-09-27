@@ -860,12 +860,12 @@ def info_table(threads, number, proxies):
         return f"{Col.orange}| {Col.cyan}{count} " if proxies == True else "    "
     text = '''
     
-                                        {5}Started the Job with {0}{6}{5} thread(s)                   
-                                                                
-                                        {2}Phone Number {3}={0} {7}                          
-                                                                
-                                        {4}Proxies:                                           
-                                            {3}>>> {2}State{4}: {0}{8} {9}                        
+                        {5}Started the Job with {0}{6}{5} thread(s)                   
+                                                
+                        {2}Phone Number {3}={0} {7}                          
+                                                
+                        {4}Proxies:                                           
+                            {3}>>> {2}State{4}: {0}{8} {9}                        
 
 
                 {11}       
