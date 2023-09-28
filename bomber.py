@@ -842,7 +842,7 @@ def err():
              {4}>>>{5} This will start bombing with proxies and 7 Threads 
         {0}
           Tip: 
-               You can use {4}<{0} python bumber.py --scrapp {4}>{0} to
+               You can use {4}<{0} python bomber.py --scrapp {4}>{0} to
                get Fresh proxies! 
                    
 '''.format(Col.cyan, Col.green, Col.light_gray, Col.light_blue, Col.pink, Col.light_red))
