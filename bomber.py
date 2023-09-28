@@ -844,9 +844,11 @@ def err():
           Tip: 
                You can use {4}<{0} python bomber.py --scrapp {4}>{0} to
                get Fresh proxies! 
-                   
+            
+          {5}Press Enter 2 times for exit
 '''.format(Col.cyan, Col.green, Col.light_gray, Col.light_blue, Col.pink, Col.light_red))
     print(Col.reset) 
+    input() ; input()
     exit()
 
 def info_table(threads, number, proxies):
