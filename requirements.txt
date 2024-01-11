@@ -1,2 +1,3 @@
 pystyle==2.9
 requests==2.31.0
+user-agent==0.1.10
