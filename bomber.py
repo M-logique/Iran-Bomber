@@ -777,7 +777,6 @@ if __name__ == "__main__":
 
     logo = Colorate.Horizontal(Colors.DynamicMIX((Col.cyan, Col.blue, Col.purple)), Center.XCenter(banner))
 
-    # print(logo)
     def err():
         print()
         System.Clear()
@@ -808,7 +807,7 @@ if __name__ == "__main__":
             return choice(p).strip() if len(p) > 0 else None
     if not len(argv) > 1:
         err()
-        # print(Col.reset)
+        
     else:
         num = argv[1]
         args = ' '.join(argv).lower().split('--') if '--' in ' '.join(argv) else False
@@ -834,8 +833,7 @@ if __name__ == "__main__":
                         Thread(target=main, args= (num, random_proxy()), name=str(i)).start()
                     else: print(Center.XCenter(info_table(threads=threads, proxies=True, number=num)))
                         
-                    # else: 
-                    #     end()
+                    
                 elif not 'proxies' in ''.join(args):
                     System.Title(f"Threads: {threads} , Proxies: False, Number: {num}")
                     for i in range(int(threads)):
