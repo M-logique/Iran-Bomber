@@ -47,3 +47,5 @@ successful_start_msg = '''
 
 
 updated_proxy_msg = "   Your 'proxies.txt' has been updated, Enjoy!",
+
+no_proxy_file = "You don;t have a proxy list ! \n use this command for generating a proxy list.\npython bomber.py --scrapp"
