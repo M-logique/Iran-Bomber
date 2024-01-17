@@ -8,7 +8,7 @@ from threading import Thread
 from user_agent import generate_user_agent as agent
 from time import sleep
 
-
+import cli_texts
 
 class Sms:
     def __init__(self, phone, proxy):
@@ -773,24 +773,7 @@ def main_call(phonenum: str, proxy):
         sleep(5)
 
 if __name__ == "__main__":
-    banner = '''
-
-
-
-            ██╗██████╗  █████╗ ███╗  ██╗
-            ██║██╔══██╗██╔══██╗████╗ ██║
-            ██║██████╔╝███████║██╔██╗██║
-            ██║██╔══██╗██╔══██║██║╚████║
-            ██║██║  ██║██║  ██║██║ ╚███║
-            ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚══╝
-
-    ██████╗  █████╗ ███╗   ███╗██████╗ ███████╗██████╗ 
-    ██╔══██╗██╔══██╗████╗ ████║██╔══██╗██╔════╝██╔══██╗
-    ██████╦╝██║  ██║██╔████╔██║██████╦╝█████╗  ██████╔╝
-    ██╔══██╗██║  ██║██║╚██╔╝██║██╔══██╗██╔══╝  ██╔══██╗
-    ██████╦╝╚█████╔╝██║ ╚═╝ ██║██████╦╝███████╗██║  ██║
-    ╚═════╝  ╚════╝ ╚═╝     ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
-    '''
+    banner = cli_texts.banner
 
     logo = Colorate.Horizontal(Colors.DynamicMIX((Col.cyan, Col.blue, Col.purple)), Center.XCenter(banner))
 
@@ -798,19 +781,7 @@ if __name__ == "__main__":
     def err():
         print()
         System.Clear()
-        print('''
-            {2}Usage = {1}python bomber.py +989123456789{2}
-            self.proxy = {1}--self.proxy{2}
-            threads = {1}--threads {4}<amount>{2}
-            {4}>>{3} python bomber.py {1}--proxies --threads 7
-                {4}>>>{5} This will start bombing with proxies and 7 Threads 
-            {0}
-            Tip: 
-                You can use {4}<{0} python bomber.py --scrapp {4}>{0} to
-                get Fresh proxies! 
-                
-            {5}Press Enter 2 times for exit
-    '''.format(Col.cyan, Col.green, Col.light_gray, Col.light_blue, Col.pink, Col.light_red))
+        print(cli_texts.error_msg.format(Col.cyan, Col.green, Col.light_gray, Col.light_blue, Col.pink, Col.light_red))
         print(Col.reset) 
         input() ; input()
         exit()
@@ -824,18 +795,7 @@ if __name__ == "__main__":
         
         def bruh():
             return f"{Col.orange}| {Col.cyan}{count} " if proxies == True else "    "
-        text = '''
-        
-                            {5}Started the Job with {0}{6}{5} thread(s)                   
-                                                    
-                            {2}Phone Number {3}={0} {7}                          
-                                                    
-                            {4}Proxies:                                           
-                                {3}>>> {2}State{4}: {0}{8} {9}                        
-
-
-                    {11}       
-    '''.format(Col.green, Col.cyan, Col.purple, Col.dark_blue, Col.orange, Col.red, threads, number, proxies, bruh(), Col.yellow, Colors.reset)
+        text = cli_texts.successful_start_msg.format(Col.green, Col.cyan, Col.purple, Col.dark_blue, Col.orange, Col.red, threads, number, proxies, bruh(), Col.yellow, Colors.reset)
         return text
 
     def random_proxy():
@@ -892,7 +852,7 @@ if __name__ == "__main__":
                         print('\n')
                         p = get("https://raw.githubusercontent.com/proxifly/free-proxy-list/main/proxies/protocols/http/data.txt").text
                         file.write(p)
-                        Write.Print(text="   Your 'proxies.txt' has been updated, Enjoy!", color=Colors.red_to_yellow, interval=0.000)
+                        Write.Print(text=cli_texts.updated_proxy_msg, color=Colors.red_to_yellow, interval=0.000)
 
                 else: 
                     err()
