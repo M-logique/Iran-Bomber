@@ -31,3 +31,7 @@ output/
 *.sqlite
 *.xlsx
 *.csv
+
+
+# Local ignorations
+proxies.txt
