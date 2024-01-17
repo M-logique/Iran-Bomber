@@ -1,14 +1,16 @@
-# import requests as req
-from requests import post, get
-from pystyle import *
-from sys import argv, exit
-from random import choice
+import sys
+import threading
 from os import path
-from threading import Thread
-from user_agent import generate_user_agent as agent
+from random import choice
 from time import sleep
 
+import requests
+from requests import get, post
+from user_agent import generate_user_agent as agent
+from pystyle import *
+
 import cli_texts
+
 
 class Sms:
     def __init__(self, phone, proxy):
