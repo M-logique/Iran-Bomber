@@ -1,0 +1,33 @@
+# Python-related
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# Miscellaneous
+*.log
+*.config
+
+# Editor-related
+.vscode/
+.idea/
+
+# Compiled files
+*.pyc
+
+# Dependency directories
+__pycache__/
+dist/
+build/
+*.egg-info/
+
+# Ignore generated files
+output/
+*.sqlite
+*.xlsx
+*.csv
