@@ -800,7 +800,7 @@ if __name__ == "__main__":
 
     def random_proxy():
         if not path.exists('proxies.txt'):
-            print(cli_texts.no_proxy_file)
+            Write.Print(text=cli_texts.no_proxy_file, color=Colors.red_to_yellow, interval=0.000)
             exit()
         with open('proxies.txt', 'r') as file:
             p = file.readlines()
