@@ -10,15 +10,14 @@
 -  🔪 سریع و پر سرعت 
 
 ## 📃 پیش نیاز ها
-- [Python3.11](https://www.python.org/downloads/)
-- requests
-- PyStyle
+- python 3.x
+
 ## نصب و راه اندازی
 
 پروژه را کلون کنید 🔗
 
 ```bash
-  git clone https://github.com/M-logique/Iran-Bomber/
+  git clone https://github.com/mohsenfn/Iran-Bomber/
 ```
 
 به فولدر پروژه بروید 📂
