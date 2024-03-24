@@ -8,13 +8,11 @@ if path.exists("./requirements.txt"):
     
     for lib in libs:
         print(lib)
-        # try:
-        #     __import__(lib)
-        # except ModuleNotFoundError:
-        #     system("pip install "+lib)
-        __import__(lib)
+        try:
+            __import__(lib)
+        except ModuleNotFoundError:
+            system("pip install "+lib)
 
-input()
 
 from pystyle import Col, Center, System
 from Plugins.api_list import handler
