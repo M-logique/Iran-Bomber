@@ -10,7 +10,7 @@ class Functions:
 
 
     @staticmethod
-    def start(choice: str, number: str, proxies: Optional[dict] = None):
+    def start(choice: str, number: str, proxies: Optional[dict] = None, count: Optional[int] = 10):
         if Functions.proxy_state():
             proxies = {"http": Functions.get_proxy(), "https": Functions.get_proxy()}
 
@@ -27,7 +27,8 @@ class Functions:
 
 
         print(f"{Col.yellow}[!]{Col.green} Started sending {choice} with {Fore.LIGHTCYAN_EX}{count[choice]}{Col.green} apis")
-        return func[choice](number, proxies)
+        for i in range(count):
+            func[choice](number, proxies)
     
 
     @staticmethod
