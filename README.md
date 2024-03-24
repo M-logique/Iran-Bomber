@@ -53,4 +53,5 @@
 
 
 ## 🔗 Discord
-[![Discord](https://img.shields.io/discord/1039243284863795312)](https://discord.gg/nbx2Ks8V9G)
+[![Discord](https://img.shields.io/discord/1039243284863795312)](https://discord.gg/gCkUyjKE6g)
+[![Discord server](https://discordapp.com/api/guilds/1039243284863795312/embed.png?style=banner3)](https://discord.gg/gCkUyjKE6g)
