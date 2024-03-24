@@ -1,26 +1,27 @@
 # import requests as req
+from os import path, system
+
+
+if path.exists("./requirements.txt"):
+    with open("./requirements.txt") as file:
+        libs = [i.split("==")[0] for i in file.readlines()]
+    
+    for lib in libs:
+        print(lib)
+        # try:
+        #     __import__(lib)
+        # except ModuleNotFoundError:
+        #     system("pip install "+lib)
+        __import__(lib)
+
+input()
+
 from pystyle import Col, Center, System
 from Plugins.api_list import handler
 from colorama import Fore
 from Plugins.functions import Functions
 
 r, g = Fore.LIGHTGREEN_EX, Fore.LIGHTYELLOW_EX
-
-
-def start(choice: str, number: str):
-    func = {
-        "calls": handler.send_call,
-        "sms": handler.send_sms
-    }
-
-    count = {
-        "calls": handler.call_api_count,
-        "sms": handler.sms_api_count
-    }
-
-    print(f"{Col.yellow}[!]{Col.green} Started Sending {choice} with {Fore.LIGHTCYAN_EX}{count[choice]}{Col.green} apis")
-    return func[choice](number)
-
 
 if __name__ == "__main__":
     logo = f'''

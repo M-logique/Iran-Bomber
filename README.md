@@ -36,13 +36,12 @@
 لذت ببرید 💖
 
 ```bash
-  python bomber.py +989xxxxxxxxx --threads 10 --proxies
+  python main.py
 ```
- به کمک نیاز دارید؟ 🤔
 
-```bash
-  python bomber.py
-  ```
+
+ [به کمک نیاز دارید؟ 🤔](https://github.com/M-logique/Iran-Bomber/issues)
+ 
 
 
 ## 👨‍🏭 Authors
