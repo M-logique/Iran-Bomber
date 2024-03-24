@@ -10,7 +10,7 @@ class Functions:
 
 
     @staticmethod
-    def start(choice: str, number: str, proxies: Optional[dict] = None, count: Optional[int] = 10):
+    def start(choice: str, number: str, count: Optional[int] = 10):
         if Functions.proxy_state():
             proxies = {"http": Functions.get_proxy(), "https": Functions.get_proxy()}
 
