@@ -64,7 +64,7 @@ if __name__ == "__main__":
             number = Functions.get_input(f"{Fore.CYAN}[=]{Col.gray} Enter the phone number {Fore.CYAN}[9xxxxxxxxx]{Col.gray}: {Col.green}", checker=lambda x: x != "" and x.isnumeric() and x.startswith("9") and len(x) == 10)
             count = Functions.get_input(f"{Fore.CYAN}[=]{Col.gray} Enter spam count: {Col.green}", lambda x: x.isnumeric() and int(x) >= 0)
 
-            Functions.start(choices[choice], number, count=int(count))
+            Functions.start(choices[choice], number, int(count))
 
 
         except KeyboardInterrupt:
