@@ -10,10 +10,10 @@ class Functions:
 
 
     @staticmethod
-    def start(choice: str, number: str, spam_count: Optional[int] = 10):
+    def start(choice: str, number: str, spam_count: Optional[int] = 10, proxies: Optional[dict] = None):
         if Functions.proxy_state():
             proxies = {"http": Functions.get_proxy(), "https": Functions.get_proxy()}
-
+        
         
         func = {
             "call": handler.send_call,
