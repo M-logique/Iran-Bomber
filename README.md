@@ -45,12 +45,3 @@
 ## استفاده از پروکسی: 
 در صورتی که تمایل به استفاده از پروکسی دارید میتونید پروکسی های http تهیه کنید و یه فایل به اسم proxies.txt توی فولدر اصلی بسازید
 سورس کد به صورت خودکار ازش استفاده میکنه
-
-## 👨‍🏭 Authors
-
-- [@mohammad87115](https://www.github.com/mohammad87115)
-- [@M.logique](https://www.github.com/M-logique)
-
-
-## 🔗 Discord
-[![Discord server](https://discordapp.com/api/guilds/1039243284863795312/embed.png?style=banner3)](https://discord.gg/gCkUyjKE6g)
