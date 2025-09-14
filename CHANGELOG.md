@@ -1,3 +1,13 @@
+## [1.3.0](https://github.com/M-logique/iran-bomber/compare/v1.2.1...v1.3.0) (2025-09-14)
+
+### 🚀 Features
+
+* add -version flag ([0691c57](https://github.com/M-logique/iran-bomber/commit/0691c57ee389bf61a36f938ec9298014bcb02e71))
+
+### 🐛 Bug Fixes
+
+* fix install.sh ([30d0df5](https://github.com/M-logique/iran-bomber/commit/30d0df5a2ae8f28971b82c4aeff1cf97797527d6))
+
 ## [1.2.1](https://github.com/M-logique/iran-bomber/compare/v1.2.0...v1.2.1) (2025-09-14)
 
 ### 🐛 Bug Fixes
