@@ -5,6 +5,10 @@ on:
     paths:
       - 'api.json'
 
+permissions: 
+  contents: write
+
+
 jobs:
   format-minify:
     runs-on: ubuntu-latest
