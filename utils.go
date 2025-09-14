@@ -28,10 +28,14 @@ const (
 	ColorReset  = "\033[0m"
 )
 
+var Version string
+
 // ===== UI: Console and Logo Functions =====
 
 func PrintLogoString() {
 	logoTemplate := `
+
+
                 {{.Y}}██{{.G}}╗{{.Y}}██████{{.G}}╗{{.Y}}  █████{{.G}}╗{{.Y}} ███{{.G}}╗{{.Y}}  ██{{.G}}╗{{.Y}}
                 ██{{.G}}║{{.Y}}██{{.G}}╔══{{.Y}}██{{.G}}╗{{.Y}}██{{.G}}╔══{{.Y}}██{{.G}}╗{{.Y}}████{{.G}}╗ {{.Y}}██{{.G}}║
                {{.Y}} ██{{.G}}║{{.Y}}██████{{.G}}╔╝{{.Y}}███████{{.G}}║{{.Y}}██{{.G}}╔{{.Y}}██{{.G}}╗{{.Y}}██{{.G}}║
@@ -43,10 +47,12 @@ func PrintLogoString() {
     {{.Y}}██████{{.G}}╦╝{{.Y}}██{{.G}}║  {{.Y}}██{{.G}}║{{.Y}}██{{.G}}╔{{.Y}}████{{.G}}╔{{.Y}}██{{.G}}║{{.Y}}██████{{.G}}╦╝{{.Y}}█████{{.G}}╗  {{.Y}}██████{{.G}}╔╝
     {{.Y}}██{{.G}}╔══{{.Y}}██{{.G}}╗{{.Y}}██{{.G}}║  {{.Y}}██{{.G}}║{{.Y}}██{{.G}}║╚{{.Y}}██{{.G}}╔╝{{.Y}}██{{.G}}║{{.Y}}██{{.G}}╔══{{.Y}}██{{.G}}╗{{.Y}}██{{.G}}╔══╝  {{.Y}}██{{.G}}╔══{{.Y}}██{{.G}}╗
     {{.Y}}██████{{.G}}╦╝╚{{.Y}}█████{{.G}}╔╝{{.Y}}██{{.G}}║ ╚═╝ {{.Y}}██{{.G}}║{{.Y}}██████{{.G}}╦╝{{.Y}}███████{{.G}}╗{{.Y}}██{{.G}}║  {{.Y}}██{{.G}}║
-    {{.G}}╚═════╝  ╚════╝ ╚═╝     ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝{{.Reset}}
+    {{.G}}╚═════╝  ╚════╝ ╚═╝     ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
+	
+	{{.G}}! {{.Gr}}Version: {{.C}}{{.Version}}{{.Reset}}
 	`
 	tmpl := template.Must(template.New("logo").Parse(logoTemplate))
-	data := map[string]string{"Y": ColorYellow, "G": ColorGreen, "Reset": ColorReset}
+	data := map[string]string{"Y": ColorYellow, "C": ColorCyan, "Gr": ColorGray, "G": ColorGreen, "Reset": ColorReset, "Version": Version}
 	tmpl.Execute(os.Stdout, data)
 	fmt.Println()
 }
