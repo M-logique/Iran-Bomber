@@ -16,7 +16,6 @@ func isNumeric(s string) bool {
 }
 
 func main() {
-	ClearConsole()
 	PrintLogoString()
 
 	// Define and parse command-line flags

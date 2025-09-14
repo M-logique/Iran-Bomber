@@ -9,8 +9,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/exec"
-	"runtime"
 	"strconv"
 	"strings"
 	"text/template"
@@ -55,19 +53,6 @@ func PrintLogoString() {
 	data := map[string]string{"Y": ColorYellow, "C": ColorCyan, "Gr": ColorGray, "G": ColorGreen, "Reset": ColorReset, "Version": Version}
 	tmpl.Execute(os.Stdout, data)
 	fmt.Println()
-}
-
-func ClearConsole() {
-	switch runtime.GOOS {
-	case "windows":
-		cmd := exec.Command("cmd", "/c", "cls")
-		cmd.Stdout = os.Stdout
-		_ = cmd.Run()
-	default:
-		cmd := exec.Command("clear")
-		cmd.Stdout = os.Stdout
-		_ = cmd.Run()
-	}
 }
 
 func GetInput(prompt string, checker func(string) bool) string {
