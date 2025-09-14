@@ -1,3 +1,13 @@
+## [1.2.1](https://github.com/M-logique/iran-bomber/compare/v1.2.0...v1.2.1) (2025-09-14)
+
+### 🐛 Bug Fixes
+
+* fix version ([b545dc5](https://github.com/M-logique/iran-bomber/commit/b545dc59195fa5ff98442f990c04e2f4f1c2b67c))
+
+### 🚧 Refactors
+
+* update install.sh ([b6bb295](https://github.com/M-logique/iran-bomber/commit/b6bb295add55cd1a0f0e9d8f55b15f488a53c2b3))
+
 ## [1.2.0](https://github.com/M-logique/iran-bomber/compare/v1.1.0...v1.2.0) (2025-09-14)
 
 ### ⚠ BREAKING CHANGES
