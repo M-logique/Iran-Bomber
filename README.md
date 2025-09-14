@@ -1,7 +1,7 @@
 <div align="center">
-  <h1>🇮🇷 ایران بمبر</h1>
+  <h1>💀 ایران بمبر</h1>
   <p>نسخه سریع و کراس‌پلتفرم SMS Bomber ایرانی با Go</p>
-  <img src="https://img.shields.io/github/downloads/M-logique/iran-bomber/total?style=flat-square&logo=github" alt="Total Downloads">
+  <img src=".github/assets/screenshot.png" alt="Screenshot" href="https://github.com/M-logique/iran-bomber">
 </div>
 
 ---
