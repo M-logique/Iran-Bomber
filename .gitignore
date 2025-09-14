@@ -30,3 +30,9 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+
+# SEMANTIC SHITS
+node_modules/
+package.json
+package-lock.json
