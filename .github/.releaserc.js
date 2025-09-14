@@ -33,9 +33,6 @@ module.exports = {
       "@semantic-release/release-notes-generator",
       {
         preset: "conventionalcommits",
-        writerOpts: {
-            assets: JSON.parse(process.env.ASSETS_JSON || "[]")
-        },
         presetConfig: {
           types: [
             {

@@ -35,37 +35,10 @@ jobs:
         run: |
           find dist -mindepth 2 -type f -exec mv -t dist {} +
           find dist -mindepth 1 -type d -exec rm -r {} +
-
-      - name: Prepare Assets JSON for Release Notes
-        id: prepare_assets
-        run: |
-          # This script scans the downloaded artifacts, generates checksums,
-          # and creates a JSON array string for the release notes template.
-          ASSETS_JSON="["
-          for file in ./dist/*; do
-            if [ -f "$file" ]; then
-              FILENAME=$(basename "$file")
-              # Extract OS and Arch from filename, e.g., Iran-Bomber-linux-amd64-v1.0.0
-              # This parsing is brittle; a more robust solution would pass this data from the build job.
-              # But for this structure, it works.
-              IFS='-' read -ra PARTS <<< "$FILENAME"
-              OS=${PARTS[2]}
-              ARCH=${PARTS[3]}
-              CHECKSUM=$(sha256sum "$file" | awk '{ print $1 }')
-              
-              # Construct the JSON object for this asset
-              ASSET_INFO="{\"path\": \"$file\", \"name\": \"$FILENAME\", \"os\": \"$OS\", \"arch\": \"$ARCH\", \"checksum\": \"$CHECKSUM\"},"
-              ASSETS_JSON+=$ASSET_INFO
-            fi
-          done
-          ASSETS_JSON=$(echo "$ASSETS_JSON" | sed 's/,$//') # Remove trailing comma
-          ASSETS_JSON+="]"
-          echo "assets_json=$ASSETS_JSON" >> "$GITHUB_OUTPUT"
-        
+      
       - name: Run semantic-release
         run: | 
           cp ./.github/.releaserc.js .
           npx semantic-release --debug
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ASSETS_JSON: ${{ steps.prepare_assets.outputs.assets_json }}
