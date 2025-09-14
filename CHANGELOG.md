@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/M-logique/Iran-Bomber/compare/v1.0.0...v1.0.1) (2025-09-14)
+
+### 🐛 Bug Fixes
+
+* fix assets table ([df73f13](https://github.com/M-logique/Iran-Bomber/commit/df73f133b1bf375adf0c01a4985ef00beb425701))
+
 ## 1.0.0 (2025-09-14)
 
 ### ⚠ BREAKING CHANGES
