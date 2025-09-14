@@ -47,7 +47,7 @@ func PrintLogoString() {
     {{.Y}}██████{{.G}}╦╝╚{{.Y}}█████{{.G}}╔╝{{.Y}}██{{.G}}║ ╚═╝ {{.Y}}██{{.G}}║{{.Y}}██████{{.G}}╦╝{{.Y}}███████{{.G}}╗{{.Y}}██{{.G}}║  {{.Y}}██{{.G}}║
     {{.G}}╚═════╝  ╚════╝ ╚═╝     ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 	
-	{{.G}}! {{.Gr}}Version: {{.C}}{{.Version}}{{.Reset}}
+	{{.G}}! {{.Gr}}Version: {{.C}}v{{.Version}}{{.Reset}}
 	`
 	tmpl := template.Must(template.New("logo").Parse(logoTemplate))
 	data := map[string]string{"Y": ColorYellow, "C": ColorCyan, "Gr": ColorGray, "G": ColorGreen, "Reset": ColorReset, "Version": Version}
