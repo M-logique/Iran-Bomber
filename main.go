@@ -22,7 +22,7 @@ func main() {
 	// Define and parse command-line flags
 	phone := flag.String("phone", "", "Target phone number")
 	concurrency := flag.Int("c", 100, "Number of concurrent requests")
-	apiFile := flag.String("api", "https://raw.githubusercontent.com/M-logique/Iran-Bomber/refs/heads/master/api-tiny.json", "Path to the API JSON file or a URL")
+	apiFile := flag.String("api", "https://raw.githubusercontent.com/M-logique/iran-bomber/refs/heads/master/api-tiny.json", "Path to the API JSON file or a URL")
 	filterURL := flag.String("url", "", "Optional: Filter APIs by URL")
 	proxyFile := flag.String("proxy-file", "", "Optional: Path to a file with proxies")
 	proxyURL := flag.String("proxy-url", "", "Optional: URL to a list of proxies")

@@ -1,4 +1,4 @@
-module github.com/M-logique/Iran-Bomber
+module github.com/M-logique/iran-bomber
 
 go 1.24.4
 

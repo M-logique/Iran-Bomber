@@ -90,7 +90,7 @@ jobs:
             EXT=".exe"
           fi
           # A clean, predictable artifact name
-          OUTPUT_NAME="Iran-Bomber-${{ matrix.os }}-${{ matrix.arch }}-${VERSION}${EXT}"
+          OUTPUT_NAME="iran-bomber-${{ matrix.os }}-${{ matrix.arch }}-${VERSION}${EXT}"
 
           # Build the binary
           go build -trimpath -ldflags="-s -w -X main.Version=${VERSION}" -o "${OUTPUT_NAME}" .
