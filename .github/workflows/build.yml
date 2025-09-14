@@ -97,9 +97,10 @@ jobs:
 
           # Output the path for the upload step
           echo "artifact_path=${OUTPUT_NAME}" >> "$GITHUB_OUTPUT"
+          echo "artifact_name=${OUTPUT_NAME}.bin" >> "$GITHUB_OUTPUT"
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts # All binaries will be uploaded under this single artifact name
+          name: ${{ steps.build.outputs.artifact_name }} # All binaries will be uploaded under this single artifact name
           path: ${{ steps.build.outputs.artifact_path }}
