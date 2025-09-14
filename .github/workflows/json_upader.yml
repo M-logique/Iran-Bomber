@@ -1,0 +1,36 @@
+name: Format and Minify API JSON
+
+on:
+  push:
+    paths:
+      - 'api.json'
+
+jobs:
+  format-minify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up jq
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Format api.json (pretty)
+        run: |
+          jq '.' api.json > api.json.tmp && mv api.json.tmp api.json
+
+      - name: Generate minified api-tiny.json
+        run: |
+          jq -c . api.json > api-tiny.json
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add api.json api-tiny.json
+          git diff --cached --quiet || git commit -m "chore: format api.json and update minified version"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
