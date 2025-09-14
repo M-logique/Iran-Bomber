@@ -1,3 +1,17 @@
+## [1.2.0](https://github.com/M-logique/iran-bomber/compare/v1.1.0...v1.2.0) (2025-09-14)
+
+### ⚠ BREAKING CHANGES
+
+* change project name from Iran-Bomber to iran-bomber to make it cli-friendly
+
+### 🚀 Features
+
+* change project name from Iran-Bomber to iran-bomber to make it cli-friendly ([aeecc27](https://github.com/M-logique/iran-bomber/commit/aeecc278b2a9d724ae77ff8caeab0801f3302755))
+
+### 🚧 Refactors
+
+* remove ClearConsole() ([661a2f7](https://github.com/M-logique/iran-bomber/commit/661a2f781479dfd5e9df70c23e2fd872622e6919))
+
 ## [1.1.0](https://github.com/M-logique/Iran-Bomber/compare/v1.0.1...v1.1.0) (2025-09-14)
 
 ### ⚠ BREAKING CHANGES
