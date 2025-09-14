@@ -1,3 +1,25 @@
+## [1.1.0](https://github.com/M-logique/Iran-Bomber/compare/v1.0.1...v1.1.0) (2025-09-14)
+
+### ⚠ BREAKING CHANGES
+
+* code now loads api list dynamically from github repo
+
+### 🚀 Features
+
+* code now loads api list dynamically from github repo ([7565917](https://github.com/M-logique/Iran-Bomber/commit/7565917c48d4735f4e7b9b0d43bab3e02352b3fd))
+
+### 🐛 Bug Fixes
+
+* fix json prettifier's permission issue ([79f0626](https://github.com/M-logique/Iran-Bomber/commit/79f0626de4779ed9b8a4549555881fa42dfab447))
+
+### 🚧 Refactors
+
+* made api.json prettier ([cc9212d](https://github.com/M-logique/Iran-Bomber/commit/cc9212da212ec74464f5741b2cb412c33c24088f))
+
+### 🔄 CI/CD
+
+* add auto-prettifier for api.json file ([c8052a6](https://github.com/M-logique/Iran-Bomber/commit/c8052a6a326c2e38ed69443ea6449d098a97c842))
+
 ## [1.0.1](https://github.com/M-logique/Iran-Bomber/compare/v1.0.0...v1.0.1) (2025-09-14)
 
 ### 🐛 Bug Fixes
