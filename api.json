@@ -2990,7 +2990,7 @@
         "x-requested-with": "XMLHttpRequest"
       }
     }
-  },
+  }, 
   {
     "Type": "sms",
     "Request": {
