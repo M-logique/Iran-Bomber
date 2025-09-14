@@ -1,8 +1,7 @@
-module Iran-Bomber
+module github.com/M-logique/Iran-Bomber
 
 go 1.24.4
 
-require github.com/schollz/progressbar/v3 v3.18.0
 
 require (
 	github.com/andybalholm/brotli v1.2.0 // indirect
