@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"strconv"
 	"strings"
@@ -26,7 +27,13 @@ func main() {
 	proxyFile := flag.String("proxy-file", "", "Optional: Path to a file with proxies")
 	proxyURL := flag.String("proxy-url", "", "Optional: URL to a list of proxies")
 	loopCount := flag.Int("loop", 1, "How many times the attack repeats")
+	showV := flag.Bool("v", false, "print version and exit")
 	flag.Parse()
+
+	if *showV {
+		fmt.Println("iran-bomber Version:", Version)
+		return
+	}
 
 	// Interactive mode if phone number is not provided via flag
 	if *phone == "" {
