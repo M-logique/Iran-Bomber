@@ -1,3 +1,9 @@
+## [1.4.0-dev.1](https://github.com/M-logique/iran-bomber/compare/v1.3.1-dev.1...v1.4.0-dev.1) (2025-09-15)
+
+### 🚀 Features
+
+* add ALLOW_INSECURE ([a603474](https://github.com/M-logique/iran-bomber/commit/a6034746a9a39e32835d7760520f0682262ea794))
+
 ## [1.3.1-dev.1](https://github.com/M-logique/iran-bomber/compare/v1.3.0...v1.3.1-dev.1) (2025-09-15)
 
 ### 🚧 Refactors
