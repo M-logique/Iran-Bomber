@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -209,6 +210,9 @@ func NewHTTPClientWithDNS(dnsServer string) *http.Client {
 
             return dialer.DialContext(ctx, network, net.JoinHostPort(ips[0], port))
         },
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: os.Getenv("ALLOW_INSECURE") == "true",
+		},
     }
 
     return &http.Client{
