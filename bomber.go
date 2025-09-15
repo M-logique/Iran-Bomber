@@ -2,10 +2,12 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -53,6 +55,9 @@ func NewBomber(apis []API, proxies []string) (*Bomber, error) {
                 MaxConnsPerHost: 20,
                 ReadTimeout:     20 * time.Second,
                 WriteTimeout:    20 * time.Second,
+				TLSConfig: &tls.Config{
+					InsecureSkipVerify: os.Getenv("ALLOW_INSECURE") == "true",
+				},
             }
             switch {
             case strings.HasPrefix(proxy, "socks5://"):
