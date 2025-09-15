@@ -1,3 +1,9 @@
+## [1.3.1-dev.1](https://github.com/M-logique/iran-bomber/compare/v1.3.0...v1.3.1-dev.1) (2025-09-15)
+
+### 🚧 Refactors
+
+* add dns settings for termux ([7ce7a43](https://github.com/M-logique/iran-bomber/commit/7ce7a4339f6f43552a2836c2fcf8e7f028254552))
+
 ## [1.3.0](https://github.com/M-logique/iran-bomber/compare/v1.2.1...v1.3.0) (2025-09-14)
 
 ### 🚀 Features
