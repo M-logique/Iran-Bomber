@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -13,6 +14,8 @@ import (
 	"github.com/valyala/fasthttp"
 	"github.com/valyala/fasthttp/fasthttpproxy"
 )
+
+const DNSServer = "8.8.8.8"
 
 // API struct defines the data model for an API endpoint from the JSON file.
 type API struct {
@@ -37,41 +40,78 @@ type Bomber struct {
 	}
 }
 
-// NewBomber creates a Bomber instance with a pool of proxy-configured clients.
 func NewBomber(apis []API, proxies []string) (*Bomber, error) {
-	var clients []*fasthttp.Client
-	if len(proxies) > 0 {
-		for _, proxy := range proxies {
-			client := &fasthttp.Client{
-				Name:            "GoBomber/5.0",
-				MaxConnsPerHost: 20,
-				ReadTimeout:     20 * time.Second,
-				WriteTimeout:    20 * time.Second,
-			}
-			switch {
-			case strings.HasPrefix(proxy, "socks5://"):
-				client.Dial = fasthttpproxy.FasthttpSocksDialer(proxy)
-			case strings.HasPrefix(proxy, "http://"), strings.HasPrefix(proxy, "https://"):
-				client.Dial = fasthttpproxy.FasthttpHTTPDialer(proxy)
-			default:
-				log.Printf("%s[WARN] Skipping invalid proxy format: %s%s", ColorYellow, proxy, ColorReset)
-				continue
-			}
-			clients = append(clients, client)
-		}
-	}
+    var clients []*fasthttp.Client
 
-	// Always add a default, non-proxied client.
-	clients = append(clients, &fasthttp.Client{
-		Name:            "GoBomber/5.0-Direct",
-		MaxConnsPerHost: 200,
-		ReadTimeout:     15 * time.Second,
-		WriteTimeout:    15 * time.Second,
-	})
+    useCustomDNS := len(proxies) == 0
+    
 
-	log.SetFlags(0)
-	return &Bomber{clients: clients, apiTemplates: apis}, nil
+    if len(proxies) > 0 {
+        for _, proxy := range proxies {
+            client := &fasthttp.Client{
+                Name:            "GoBomber/5.0",
+                MaxConnsPerHost: 20,
+                ReadTimeout:     20 * time.Second,
+                WriteTimeout:    20 * time.Second,
+            }
+            switch {
+            case strings.HasPrefix(proxy, "socks5://"):
+                client.Dial = fasthttpproxy.FasthttpSocksDialer(proxy)
+            case strings.HasPrefix(proxy, "http://"), strings.HasPrefix(proxy, "https://"):
+                client.Dial = fasthttpproxy.FasthttpHTTPDialer(proxy)
+            default:
+                log.Printf("%s[WARN] Skipping invalid proxy format: %s%s", ColorYellow, proxy, ColorReset)
+                continue
+            }
+            clients = append(clients, client)
+        }
+    }
+
+    // Always add a default client
+    var defaultClient *fasthttp.Client
+    if useCustomDNS {
+        defaultClient = &fasthttp.Client{
+            Name:            "GoBomber/5.0-Direct",
+            MaxConnsPerHost: 200,
+            ReadTimeout:     15 * time.Second,
+            WriteTimeout:    15 * time.Second,
+            Dial: func(addr string) (net.Conn, error) {
+                host, port, err := net.SplitHostPort(addr)
+                if err != nil {
+                    return nil, err
+                }
+
+                resolver := &net.Resolver{
+                    PreferGo: true,
+                    Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+                        d := net.Dialer{Timeout: 5 * time.Second}
+                        return d.DialContext(ctx, "udp", DNSServer+":53")
+                    },
+                }
+
+                ips, err := resolver.LookupHost(context.Background(), host)
+                if err != nil {
+                    return nil, err
+                }
+
+                d := net.Dialer{Timeout: 15 * time.Second, KeepAlive: 15 * time.Second}
+                return d.Dial("tcp", net.JoinHostPort(ips[0], port))
+            },
+        }
+    } else {
+        defaultClient = &fasthttp.Client{
+            Name:            "GoBomber/5.0-Direct",
+            MaxConnsPerHost: 200,
+            ReadTimeout:     15 * time.Second,
+            WriteTimeout:    15 * time.Second,
+        }
+    }
+
+    clients = append(clients, defaultClient)
+    log.SetFlags(0)
+    return &Bomber{clients: clients, apiTemplates: apis}, nil
 }
+
 
 func (b *Bomber) getNextClient() *fasthttp.Client {
 	idx := b.clientIndex.Add(1) - 1

@@ -2,10 +2,12 @@ package main
 
 import (
 	"bufio"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"math/rand"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -88,7 +90,8 @@ func LoadAndFilterAPIs(filePathOrURL, filterURL, phoneNumber string) ([]API, err
 	fmt.Printf("%s[INFO]%s Loading API List from: %s'%s%s%s'%s\n", ColorGreen, ColorYellow, ColorRed, ColorReset, filePathOrURL, ColorRed, ColorReset)
 
 	if isHTTPURL(filePathOrURL) {
-		resp, err := http.Get(filePathOrURL)
+		client := NewHTTPClientWithDNS(DNSServer)
+		resp, err := client.Get(filePathOrURL)
 		if err != nil {
 			return nil, fmt.Errorf("failed to load API file from URL '%s': %w", filePathOrURL, err)
 		}
@@ -149,7 +152,8 @@ func LoadProxies(filePath, url string) ([]string, error) {
 	} else {
 		sourceName = url
 		fmt.Printf("%s[INFO] Fetching proxies from %s%s%s...%s\n", ColorYellow, ColorGreen, url, ColorYellow, ColorReset)
-		resp, err := http.Get(url)
+		client := NewHTTPClientWithDNS(DNSServer)
+		resp, err := client.Get(url)
 		if err != nil {
 			return nil, fmt.Errorf("could not fetch proxy URL '%s': %w", url, err)
 		}
@@ -175,4 +179,40 @@ func LoadProxies(filePath, url string) ([]string, error) {
 		return nil, fmt.Errorf("no valid proxies found in '%s'", sourceName)
 	}
 	return proxies, nil
+}
+
+func NewHTTPClientWithDNS(dnsServer string) *http.Client {
+    dialer := &net.Dialer{
+        Timeout:   15 * time.Second,
+        KeepAlive: 15 * time.Second,
+    }
+
+    transport := &http.Transport{
+        Proxy: http.ProxyFromEnvironment,
+        DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+            host, port, err := net.SplitHostPort(addr)
+            if err != nil {
+                return nil, err
+            }
+
+            resolver := &net.Resolver{
+                PreferGo: true,
+                Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+                    return dialer.DialContext(ctx, "udp", dnsServer+":53")
+                },
+            }
+
+            ips, err := resolver.LookupHost(ctx, host)
+            if err != nil {
+                return nil, err
+            }
+
+            return dialer.DialContext(ctx, network, net.JoinHostPort(ips[0], port))
+        },
+    }
+
+    return &http.Client{
+        Transport: transport,
+        Timeout:   20 * time.Second,
+    }
 }
