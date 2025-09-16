@@ -23,7 +23,7 @@
 ## ⚙️ نصب و استفاده ساده
 
 ### Windows
-- فایل **exe پورتابل** را از [Releases](https://github.com/M-logique/iran-bomber/releases) دانلود کنید و **همین‌طوری اجرا کنید**.
+- فایل **exe پورتابل** را از [Releases](https://github.com/M-logique/iran-bomber/releases/latest) دانلود کنید و **همین‌طوری اجرا کنید**.
 
 ### Linux / macOS / Termux
 ```bash
