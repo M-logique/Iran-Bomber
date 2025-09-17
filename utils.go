@@ -7,6 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math/big"
+	random "crypto/rand" 
 	"math/rand"
 	"net"
 	"net/http"
@@ -29,17 +31,33 @@ const (
 	ColorReset  = "\033[0m"
 )
 
+var dnsList = []struct {
+	Name string
+	IP   string
+}{
+	{"Google", "8.8.8.8"},
+	{"Google", "8.8.4.4"},
+	{"Cloudflare", "1.1.1.1"},
+	{"Cloudflare", "1.0.0.1"},
+	{"Quad9", "9.9.9.9"},
+	{"OpenDNS", "208.67.222.222"},
+	{"DNS.WATCH", "84.200.69.80"},
+	{"AdGuard", "94.140.14.14"},
+	{"CleanBrowsing (Family)", "185.228.168.168"},
+	{"Level3", "4.2.2.2"},
+}
+
 var Version string
 
 // ===== UI: Console and Logo Functions =====
 
 func PrintLogoString() {
 	logoTemplate := `
-
-
-                {{.Y}}██{{.G}}╗{{.Y}}██████{{.G}}╗{{.Y}}  █████{{.G}}╗{{.Y}} ███{{.G}}╗{{.Y}}  ██{{.G}}╗{{.Y}}
+	
+	
+	{{.Y}}██{{.G}}╗{{.Y}}██████{{.G}}╗{{.Y}}  █████{{.G}}╗{{.Y}} ███{{.G}}╗{{.Y}}  ██{{.G}}╗{{.Y}}
                 ██{{.G}}║{{.Y}}██{{.G}}╔══{{.Y}}██{{.G}}╗{{.Y}}██{{.G}}╔══{{.Y}}██{{.G}}╗{{.Y}}████{{.G}}╗ {{.Y}}██{{.G}}║
-               {{.Y}} ██{{.G}}║{{.Y}}██████{{.G}}╔╝{{.Y}}███████{{.G}}║{{.Y}}██{{.G}}╔{{.Y}}██{{.G}}╗{{.Y}}██{{.G}}║
+				{{.Y}} ██{{.G}}║{{.Y}}██████{{.G}}╔╝{{.Y}}███████{{.G}}║{{.Y}}██{{.G}}╔{{.Y}}██{{.G}}╗{{.Y}}██{{.G}}║
                 {{.Y}}██{{.G}}║{{.Y}}██{{.G}}╔══{{.Y}}██{{.G}}╗{{.Y}}██{{.G}}╔══{{.Y}}██{{.G}}║{{.Y}}██{{.G}}║╚{{.Y}}████{{.G}}║
                 {{.Y}}██{{.G}}║{{.Y}}██{{.G}}║  {{.Y}}██{{.G}}║{{.Y}}██{{.G}}║ {{.Y}} ██{{.G}}║{{.Y}}██{{.G}}║ ╚{{.Y}}███{{.G}}║
                 ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚══╝
@@ -91,7 +109,8 @@ func LoadAndFilterAPIs(filePathOrURL, filterURL, phoneNumber string) ([]API, err
 	fmt.Printf("%s[INFO]%s Loading API List from: %s'%s%s%s'%s\n", ColorGreen, ColorYellow, ColorRed, ColorReset, filePathOrURL, ColorRed, ColorReset)
 
 	if isHTTPURL(filePathOrURL) {
-		client := NewHTTPClientWithDNS(DNSServer)
+		ip, _, _ := RandomDNS()
+		client := NewHTTPClientWithDNS(ip)
 		resp, err := client.Get(filePathOrURL)
 		if err != nil {
 			return nil, fmt.Errorf("failed to load API file from URL '%s': %w", filePathOrURL, err)
@@ -152,8 +171,9 @@ func LoadProxies(filePath, url string) ([]string, error) {
 		proxySource = file
 	} else {
 		sourceName = url
+		ip, _, _ := RandomDNS()
 		fmt.Printf("%s[INFO] Fetching proxies from %s%s%s...%s\n", ColorYellow, ColorGreen, url, ColorYellow, ColorReset)
-		client := NewHTTPClientWithDNS(DNSServer)
+		client := NewHTTPClientWithDNS(ip)
 		resp, err := client.Get(url)
 		if err != nil {
 			return nil, fmt.Errorf("could not fetch proxy URL '%s': %w", url, err)
@@ -232,4 +252,15 @@ func isTermux() bool {
 func setCertFiles() {
 	os.Setenv("SSL_CERT_FILE", "/data/data/com.termux/files/usr/etc/tls/cert.pem")
 	os.Setenv("CURL_CA_BUNDLE", "/data/data/com.termux/files/usr/etc/tls/cert.pem")
+}
+
+
+func RandomDNS() (string, string, error) {
+	n := big.NewInt(int64(len(dnsList)))
+	idx, err := random.Int(random.Reader, n)
+	if err != nil {
+		return "", "", err
+	}
+	entry := dnsList[idx.Int64()]
+	return entry.IP, entry.Name, nil
 }

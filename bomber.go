@@ -17,9 +17,6 @@ import (
 	"github.com/valyala/fasthttp/fasthttpproxy"
 )
 
-const DNSServer = "8.8.8.8"
-
-// API struct defines the data model for an API endpoint from the JSON file.
 type API struct {
 	Type    string `json:"Type"`
 	Request struct {
@@ -86,11 +83,12 @@ func NewBomber(apis []API, proxies []string) (*Bomber, error) {
                     return nil, err
                 }
 
+				ip, _, _ := RandomDNS()
                 resolver := &net.Resolver{
                     PreferGo: true,
                     Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
                         d := net.Dialer{Timeout: 5 * time.Second}
-                        return d.DialContext(ctx, "udp", DNSServer+":53")
+                        return d.DialContext(ctx, "udp", ip+":53")
                     },
                 }
 
