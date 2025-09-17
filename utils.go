@@ -220,3 +220,16 @@ func NewHTTPClientWithDNS(dnsServer string) *http.Client {
         Timeout:   20 * time.Second,
     }
 }
+
+func isTermux() bool {
+	if os.Getenv("PREFIX") == "/data/data/com.termux/files/usr" {
+		return true
+	}
+	_, err := os.Stat("/data/data/com.termux/files/usr")
+	return err == nil
+}
+
+func setCertFiles() {
+	os.Setenv("SSL_CERT_FILE", "/data/data/com.termux/files/usr/etc/tls/cert.pem")
+	os.Setenv("CURL_CA_BUNDLE", "/data/data/com.termux/files/usr/etc/tls/cert.pem")
+}
