@@ -1,3 +1,20 @@
+## [1.4.0](https://github.com/M-logique/iran-bomber/compare/v1.3.0...v1.4.0) (2025-09-17)
+
+### 🚀 Features
+
+* add ALLOW_INSECURE ([b2c7de1](https://github.com/M-logique/iran-bomber/commit/b2c7de118f73eba6320dcf8cb7ed3efbc5be8156))
+* add ALLOW_INSECURE ([a603474](https://github.com/M-logique/iran-bomber/commit/a6034746a9a39e32835d7760520f0682262ea794))
+
+### 🐛 Bug Fixes
+
+* Fix tls error on termux ([cb2a883](https://github.com/M-logique/iran-bomber/commit/cb2a8837e136022fa12da9d14cefec396c7c764d))
+* Fix tls error on termux ([c91afb0](https://github.com/M-logique/iran-bomber/commit/c91afb05af658b83533daf0bdcb802ca9f91d1db))
+
+### 🚧 Refactors
+
+* add dns settings for termux ([18f424d](https://github.com/M-logique/iran-bomber/commit/18f424d37f81d921a07b7e69e9779bd3c9e1e4f3))
+* add dns settings for termux ([7ce7a43](https://github.com/M-logique/iran-bomber/commit/7ce7a4339f6f43552a2836c2fcf8e7f028254552))
+
 ## [1.4.0-dev.2](https://github.com/M-logique/iran-bomber/compare/v1.4.0-dev.1...v1.4.0-dev.2) (2025-09-17)
 
 ### 🐛 Bug Fixes
