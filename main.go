@@ -19,6 +19,10 @@ func isNumeric(s string) bool {
 func main() {
 	PrintLogoString()
 
+	if isTermux() {
+		setCertFiles()
+	}
+
 	// Define and parse command-line flags
 	phone := flag.String("phone", "", "Target phone number")
 	concurrency := flag.Int("c", 100, "Number of concurrent requests")
