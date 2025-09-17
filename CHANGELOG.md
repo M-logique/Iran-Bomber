@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/M-logique/iran-bomber/compare/v1.4.0...v1.5.0) (2025-09-17)
+
+### 🚀 Features
+
+* add random dns selection ([ae75c40](https://github.com/M-logique/iran-bomber/commit/ae75c4004e49befac2cbf73b61233ae2d4f1e7a2))
+
 ## [1.4.0](https://github.com/M-logique/iran-bomber/compare/v1.3.0...v1.4.0) (2025-09-17)
 
 ### 🚀 Features
