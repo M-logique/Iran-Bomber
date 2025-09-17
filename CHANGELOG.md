@@ -1,3 +1,9 @@
+## [1.5.1](https://github.com/M-logique/iran-bomber/compare/v1.5.0...v1.5.1) (2025-09-17)
+
+### 🔥 Hot Fixes
+
+* fix the broken logo ([5609ac8](https://github.com/M-logique/iran-bomber/commit/5609ac86faada5da09bcdeb50bc434f7dfdad994))
+
 ## [1.5.0](https://github.com/M-logique/iran-bomber/compare/v1.4.0...v1.5.0) (2025-09-17)
 
 ### 🚀 Features
