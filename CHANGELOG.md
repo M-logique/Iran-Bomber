@@ -1,3 +1,9 @@
+## [1.4.0-dev.2](https://github.com/M-logique/iran-bomber/compare/v1.4.0-dev.1...v1.4.0-dev.2) (2025-09-17)
+
+### 🐛 Bug Fixes
+
+* Fix tls error on termux ([c91afb0](https://github.com/M-logique/iran-bomber/commit/c91afb05af658b83533daf0bdcb802ca9f91d1db))
+
 ## [1.4.0-dev.1](https://github.com/M-logique/iran-bomber/compare/v1.3.1-dev.1...v1.4.0-dev.1) (2025-09-15)
 
 ### 🚀 Features
