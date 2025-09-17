@@ -274,12 +274,14 @@
   {
     "Type": "sms",
     "Request": {
-      "URL": "https://drdr.ir/api/v3/auth/login/mobile/init",
+      "URL": "https://drdr.ir/api/v3/auth/login/mobile/init/",
       "Method": "POST",
       "Payload": {
-        "mobile": "{{num}}"
+        "mobile": "0{{num}}"
       },
-      "Headers": {}
+      "Headers": {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+      }
     }
   },
   {
@@ -462,31 +464,12 @@
   {
     "Type": "sms",
     "Request": {
-      "URL": "https://api.pateh.com/api/v1/LoginOrRegister",
+      "URL": "https://api.pateh.com/ath/auth/login-or-register",
       "Method": "POST",
       "Payload": {
         "mobile": "0{{num}}"
       },
-      "Headers": {
-        "authority": "api.pateh.com",
-        "method": "POST",
-        "path": "/api/v1/LoginOrRegister",
-        "scheme": "https",
-        "Accept": "application/json, text/plain, */*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "en-US,en;q=0.9,fa;q=0.8",
-        "Content-Length": "24",
-        "Content-Type": "application/json;charset=UTF-8",
-        "Origin": "https://www.pateh.com",
-        "Referer": "https://www.pateh.com/",
-        "Sec-Ch-Ua": "\"Google Chrome\";v=\"117\", \"Not;A=Brand\";v=\"8\", \"Chromium\";v=\"117\"",
-        "Sec-Ch-Ua-Mobile": "?0",
-        "Sec-Ch-Ua-Platform": "Windows",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-site",
-        "User-Agent": "{{user_agent}}"
-      }
+      "Headers": {}
     }
   },
   {
@@ -608,7 +591,8 @@
       "URL": "https://flightio.com/bff/Authentication/CheckUserKey",
       "Method": "POST",
       "Payload": {
-        "userKey": "0{{num}}"
+        "userKey": "98-{{num}}",
+        "userKeyType": 1
       },
       "Headers": {}
     }
@@ -1025,17 +1009,6 @@
       "Method": "POST",
       "Payload": {
         "phone_email": "0{{num}}"
-      },
-      "Headers": {}
-    }
-  },
-  {
-    "Type": "sms",
-    "Request": {
-      "URL": "https://www.khanoumi.com/accounts/sendotp",
-      "Method": "POST",
-      "Payload": {
-        "mobile": "0{{num}}"
       },
       "Headers": {}
     }
